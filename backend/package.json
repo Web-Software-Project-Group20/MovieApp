@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
+    "test": "mocha",
     "lint": "semistandard",
     "lint:fix": "semistandard --fix"
   },
@@ -23,6 +24,8 @@
     "pg": "^8.11.3"
   },
   "devDependencies": {
+    "chai": "^4.3.10",
+    "mocha": "^10.2.0",
     "semistandard": "^17.0.0",
     "snazzy": "^9.0.0"
   }
