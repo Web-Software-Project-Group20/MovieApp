@@ -5,14 +5,16 @@ function App() {
   return (
     <BrowserRouter>
       <Link to={'/'}>Home </Link> {/*Demonstration: Shows in every page and can be used to navigate*/}
-      <Link to={'/news'}>News</Link>
-      <Link to={'/settings'}>Settings</Link>
+      <Link to={'/news'}>News </Link>
+      <Link to={'/settings'}>Settings </Link>
+      <Link to={'/group'}>Group </Link>
       <Routes> {/*Routes are defined here*/}
         <Route path='/' element={<Home />} />
         <Route path='/settings' element={<h1>Settings</h1>} />
         <Route path='/news' element={<News />} >
           <Route path=':articleId' element={<Article />} />{/*Shows article as a nested route*/}
         </Route>
+        <Route path='/group' element={<Group />} />
         {/*Add more routes here*/}
         <Route path='*' element={<h1>Page Not Found</h1>} /> {/*If route is not found, this is displayed*/}
       </Routes>
@@ -45,6 +47,14 @@ function Article() {
   return (
     <div>
       <h1>Article</h1>
+    </div>
+  )
+}
+
+function Group() {
+  return (
+    <div>
+      <h2>Group</h2>
     </div>
   )
 }
