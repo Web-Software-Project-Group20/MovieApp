@@ -6,8 +6,10 @@ function App() {
     <BrowserRouter>
       <Link to={'/'}>Home </Link> {/*Demonstration: Shows in every page and can be used to navigate*/}
       <Link to={'/news'}>News</Link>
+      <Link to={'/settings'}>Settings</Link>
       <Routes> {/*Routes are defined here*/}
         <Route path='/' element={<Home />} />
+        <Route path='/settings' element={<h1>Settings</h1>} />
         <Route path='/news' element={<News />} >
           <Route path=':articleId' element={<Article />} />{/*Shows article as a nested route*/}
         </Route>
