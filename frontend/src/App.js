@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import News from './pages/News';
 import Profile from './pages/Profile';
 import Favourites from './pages/Favourites';
+import Groups from './pages/Groups';
 
 function App() {
   return (
@@ -11,13 +12,13 @@ function App() {
       <Link to={'/'}>Home </Link>
       <Link to={'/news'}>News </Link>
       <Link to={'/settings'}>Settings </Link>
-      <Link to={'/group'}>Group </Link>
+      <Link to={'/groups'}>Groups </Link>
       <Link to={'/profile'}>Profile </Link>
       <Routes>
         <Route path='/' element={<Home />} />
         <Route path='/settings' element={<h1>Settings</h1>} />
         <Route path='/news' element={<News />} />
-        <Route path='/group' element={<Group />} />
+        <Route path='/groups' element={<Groups />} />
         <Route path="/profile" element={<Profile />}> 
             <Route path="favourites" element={<Favourites />} /> 
         </Route>
@@ -26,14 +27,6 @@ function App() {
       </Routes>
     </BrowserRouter>
   );
-}
-
-function Group() {
-  return (
-    <div>
-      <h2>Group</h2>
-    </div>
-  )
 }
 
 export default App
