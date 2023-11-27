@@ -5,6 +5,7 @@
   "main": "app.js",
   "scripts": {
     "start": "nodemon app.js",
+    "test": "mocha -t 10000 --exit test/*.test.js",
     "lint": "semistandard",
     "lint:fix": "semistandard --fix"
   },
@@ -23,7 +24,11 @@
     "pg": "^8.11.3"
   },
   "devDependencies": {
+    "chai": "^4.3.10",
+    "chai-http": "^4.4.0",
+    "mocha": "^10.2.0",
     "semistandard": "^17.0.0",
-    "snazzy": "^9.0.0"
+    "snazzy": "^9.0.0",
+    "supertest": "^6.3.3"
   }
 }

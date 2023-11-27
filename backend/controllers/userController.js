@@ -54,6 +54,25 @@ const signOut = async (req, res) => {
   res.status(200).json({ message: 'Logged out successfully' });
 };
 
+const updateUser = async (req, res, next) => {
+  const userData = req.body;
+  const userId = res.locals.userId;
+  try {
+    if (userData.fname === '' || userData.lname === '' || !userData.fname || !userData.lname) {
+      res.status(400);
+      throw new Error('Invalid user data');
+    }
+    const dbResult = await user.updateUser(userData, userId);
+    if (!dbResult) {
+      res.status(404);
+      throw new Error('User not found');
+    }
+    res.status(200).json({ message: 'User edited successfully', dbResult });
+  } catch (error) {
+    next(error);
+  }
+};
+
 // Have to be modified to use the new authorization method
 // JWT returns the user id, not the username, so we have to modify the getUserInfo method to
 // accept the user id instead of the username
@@ -72,5 +91,6 @@ module.exports = {
   createUser,
   signIn,
   signOut,
+  updateUser,
   getUserInfo
 };

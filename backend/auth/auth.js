@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 function auth (req, res, next) {
   const token = req.cookies.uJwt;
   try {
-    const userId = jwt.verify(token, process.env.JWT_SECRET_KEY).id_users;
+    const userId = jwt.verify(token, process.env.JWT_SECRET_KEY).userId;
     res.locals.userId = userId;
     next();
   } catch (error) {

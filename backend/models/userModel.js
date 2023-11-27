@@ -5,7 +5,8 @@ const sql = {
   createUser: 'INSERT INTO users (uname, pw, email) VALUES ($1, $2, $3) RETURNING id_users',
   checkEmail: 'SELECT * FROM users WHERE email = $1',
   getPassword: 'SELECT pw, id_users FROM users WHERE uname = $1',
-  getUserInfo: 'SELECT lname, fname, uname, email FROM users WHERE uname = $1'
+  getUserInfo: 'SELECT lname, fname, uname, email FROM users WHERE uname = $1',
+  updateUser: 'UPDATE users SET fname = $1, lname = $2 WHERE id_users = $3 RETURNING uname, fname, lname'
 };
 
 const isEmailInUse = async (email) => {
@@ -23,7 +24,7 @@ const createUser = async (userData) => {
     return result;
   } catch (error) {
     console.log('Error in createUser', error);
-    return error;
+    throw new Error('Error in createUser');
   }
 };
 
@@ -33,6 +34,23 @@ const getPasswordAndId = async (uname) => {
     return result.rows;
   } else {
     return null;
+  }
+};
+
+const updateUser = async (userData, userId) => {
+  const { fname, lname } = userData;
+  const values = [fname, lname, userId];
+  console.log(values);
+  try {
+    const result = await pgPool.query(sql.updateUser, values);
+    console.log(result.rows);
+    if (result.rows.length < 0) {
+      return null;
+    }
+    return result.rows[0];
+  } catch (error) {
+    console.log('Error in updateUser', error);
+    throw new Error('Error in updateUser');
   }
 };
 
@@ -59,5 +77,6 @@ module.exports = {
   createUser,
   isEmailInUse,
   getPasswordAndId,
-  getUserInfo
+  getUserInfo,
+  updateUser
 };
