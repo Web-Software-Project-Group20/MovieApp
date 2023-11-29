@@ -25,6 +25,7 @@ function Groups() {
         {/*main content */}
         <h1>Groups</h1>
         <h2>Main content</h2>
+        <h2>ylimääräinen</h2>
       </main>
       </div>
 
