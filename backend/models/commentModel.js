@@ -2,7 +2,7 @@ const pgPool = require('../config/connection.js');
 
 const sql = {
   postComment: 'INSERT INTO group_comments (user_comments, id_users, id_groups) VALUES ($1, $2, $3) RETURNING *',
-  getComments: 'SELECT id_comments, users.id_users, uname AS username, user_comments AS comment FROM group_comments INNER JOIN users ON group_comments.id_users = users.id_users WHERE id_groups = $1',
+  getComments: 'SELECT id_comments, users.id_users, uname AS username, user_comments AS comment FROM group_comments INNER JOIN users ON group_comments.id_users = users.id_users WHERE id_groups = $1 ORDER BY created_at ASC;',
   deleteComment: 'DELETE FROM group_comments WHERE id_comments = $1 AND id_users = $2 RETURNING *'
 };
 
