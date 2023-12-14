@@ -6,7 +6,7 @@ import NavBar from '../components/global/NavBar';
 import MainSection from '../components/groupsComponents/MainSection.js';
 import ListSection from '../components/groupsComponents/ListSection';
 import MessageSection from "../components/groupsComponents/Messages";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import { CiCircleAlert } from "react-icons/ci";
 import styled from 'styled-components';
 
@@ -53,8 +53,10 @@ function Groups() {
           </GroupBox>
           <List> {/*List of movies/series*/}
             <div className="list-header">
-              <h2>List</h2>
-              <p>See All →</p>
+            <h2>List</h2>
+            <Link to="favouritedetails" target="_blank">
+              <SeeAll>See All →</SeeAll>
+          </Link> 
             </div>
             <div className="mediaList">
               <ListSection groupId={groupId} favoritesData={favorites}/>
@@ -85,6 +87,10 @@ align-items: center;
   border-bottom: 2px solid #F6F6F690; /*Adds a pretty line :) */
   max-width: 900px;
   `;
+
+const SeeAll = styled.h2`
+  margin-left: auto;
+`;
 
 const Avatar = styled.div`
   font-size: 200px;
