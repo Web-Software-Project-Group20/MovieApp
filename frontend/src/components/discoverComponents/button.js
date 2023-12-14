@@ -22,14 +22,13 @@ const GenreButton = ({ options, label, onSelect }) => {
       <Button onClick={toggleList}>
         {selectedOption ? selectedOption : label}
         {isOpen && (
-          <List isOpen={isOpen}>
-            <ListItem onClick={() => handleOptionClick(label)}>{label}</ListItem>
-            {options.map((option, index) => (
-              <ListItem key={index} onClick={() => handleOptionClick(option)}>
-                {option}
-              </ListItem>
-            ))}
-          </List>
+  <List isOpen={isOpen}>
+    {options.map((option, index) => (
+      <ListItem key={index} onClick={() => handleOptionClick(option)}>
+        {option}
+      </ListItem>
+    ))}
+  </List>
         )}
       </Button>
     </GenreButtonWrapper>
