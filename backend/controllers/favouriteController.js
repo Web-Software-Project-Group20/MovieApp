@@ -18,9 +18,8 @@ const addToFavourites = async (req, res, next) => {
     if (typeResult) {
       const checkResult = await favourites.checkIfFavouriteExists(idUsers, idGroups, movieId, seriesId);
       if (checkResult.rowCount > 0) {
-        const error = new Error('Allready in favourites');
-        error.statusCode = 409;
-        throw error;
+        res.status(409);
+        throw new Error('Invalid email');
       }
     }
     await favourites.addToFavourites(idUsers, idGroups, movieId, seriesId, name, avatar);
@@ -39,9 +38,8 @@ const getFavouritesFrom = async (req, res, next) => {
     }
     const results = await favourites.getFavourites(idUsers, idGroups);
     if (results.rowCount === 0) {
-      const error = new Error('No favorites found. Check if the user has favorites or if the ID is correct.');
-      error.statusCode = 404;
-      throw error;
+      res.status(404);
+      throw new Error('No favorites found. Check if the user has favorites or if the ID is correct.');
     }
     res.status(200).json(results.rows);
   } catch (error) {
@@ -56,17 +54,15 @@ const deleteFavourite = async (req, res, next) => {
   let results;
   try {
     if (name === undefined || name === '') {
-      const error = new Error('Name not specified');
-      error.statusCode = 404;
-      throw error;
+      res.status(400);
+      throw new Error('Name not specified');
     } else if (idGroups === undefined) {
       idGroups = '';
     }
     results = await favourites.deleteFavourite(idUsers, idGroups, name);
     if (results.rowCount === 0) {
-        const error = new Error('Nothing to delete');
-        error.statusCode = 404;
-        throw error;
+      res.status(404);
+      throw new Error('Nothing to delete');
     } else {
       res.status(200).json({ message: 'Delete success' });
     }

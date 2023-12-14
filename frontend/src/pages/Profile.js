@@ -51,7 +51,7 @@ function Profile() {
     };
   
     fetchData();
-  }, [username]);
+  }, []);
 
 
 return (

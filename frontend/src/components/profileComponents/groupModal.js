@@ -132,7 +132,7 @@ margin-top: 10px;
 const GroupModal = ({ isOpen, onClose, onGroupCreated}) => {
   const [groupName, setGroupname] = useState('');
   const [description, setDescription] = useState('');
-  const [avatar, setAvatar] = useState('');
+  const [avatar, setAvatar] = useState('https://placehold.co/99x99?text=Group');
   const [err, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
 
@@ -214,7 +214,7 @@ const GroupModal = ({ isOpen, onClose, onGroupCreated}) => {
               <AvatarContainer>
                 <AvatarCircle>
                   <AvatarImage src={avatar || 'https://placehold.co/99x99?text=New'} alt="Avatar" />
-                </AvatarCircle>
+                </AvatarCircle >
                 <ChangeButton onClick={(e) => handleAvatarChange(e)}>Change</ChangeButton>
               </AvatarContainer>
               <SubmitButtonContainer>
