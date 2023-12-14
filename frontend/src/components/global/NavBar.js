@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom"
+import { Link, useLocation } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion"
 import { useState } from "react"
 import { useLogin } from '../contexts/LoginContext'
@@ -56,20 +56,26 @@ const SideNav = () => {
     );
 };
 
-const NavItem = ({ children, selected, id, setSelected, to }) => {
+const NavItem = ({ children, id, setSelected, to }) => {
+    const location = useLocation();
+
+    const isSelected = location.pathname === to;
+
     return (
         <Link to={to}>
             <StyledButton
                 onClick={() => setSelected(id)}
                 whileHover={{ scale: 1.25 }}
                 whileTap={{ scale: 0.95 }}
+                isSelected={isSelected}
             >
                 <StyledSpan>{children}</StyledSpan>
                 <AnimatePresence>
-                    {selected && (
+                    {isSelected && (
                         <StyledSpanBackground
+                            key="background"
                             initial={{ scale: 0 }}
-                            animate={{ scale: 0.0 }}
+                            animate={{ scale: 1 }}
                             exit={{ scale: 0 }}
                         />
                     )}
@@ -100,6 +106,9 @@ margin-top: 15px;
   border: none;
   cursor: pointer;
   border-radius: 8px;
+  position: relative;
+  color: ${(props) => (props.isSelected ? "#bc9a44  " : "#B3BAAE")};
+
 
   @media (max-width: 951px) {
     margin-top: 0;
@@ -118,6 +127,8 @@ const StyledSpanBackground = styled(motion.span)`
   inset: 0;
   border-radius: 8px;
   z-index: 0;
+  background-color: ${(props) => (props.isSelected ? "#f0f0f0" : "transparent")};
+
 `;
 
 const StyledSideNav = styled.nav`
