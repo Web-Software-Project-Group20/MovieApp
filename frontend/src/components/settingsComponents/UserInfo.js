@@ -89,19 +89,19 @@ const UserInfo = () => {
 
       {isLoading ? <h2>Loading...</h2> :
         <>
-      <AvatarContainer>
+          <AvatarContainer>
             <Avatar src={avatar} />
             <Username>{username}</Username>
-      </AvatarContainer>
-      <DetailsContainer>
-        <DetailHeader>First Name</DetailHeader>
+          </AvatarContainer>
+          <DetailsContainer>
+            <DetailHeader>First Name</DetailHeader>
             <Detail>{firstName}</Detail>
-        <DetailHeader>Last Name</DetailHeader>
+            <DetailHeader>Last Name</DetailHeader>
             <Detail>{lastName}</Detail>
-        <DetailHeader>Email</DetailHeader>
+            <DetailHeader>Email</DetailHeader>
             <Detail>{email}</Detail>
-      </DetailsContainer>
-      <ButtonContainer>
+          </DetailsContainer>
+          <ButtonContainer>
             <EditButton onClick={handleEditAccount}>Edit Account</EditButton>
             <DeleteButton onClick={handleDeleteAccount}>Delete Account</DeleteButton>
           </ButtonContainer>
@@ -170,12 +170,16 @@ const ButtonContainer = styled.div`
 `;
 
 const DeleteButton = styled.button`
-  background-color: #DF9595;
+  background-color: #80000070;
   color: white;
   border: none;
   border-radius: 50px;
   padding: 1rem 2rem;
   cursor: pointer;
+
+  &:hover {
+    background-color: #800000;
+  }
 `;
 
 const EditButton = styled.button`
@@ -183,8 +187,12 @@ const EditButton = styled.button`
   color: white;
   border: none;
   border-radius: 50px;
-        padding: 1rem 2rem;
+  padding: 1rem 2rem;
   cursor: pointer;
+
+  &:hover {
+    background-color: #F6F6F640;
+  }
 `;
 
 const Backdrop = styled.div`

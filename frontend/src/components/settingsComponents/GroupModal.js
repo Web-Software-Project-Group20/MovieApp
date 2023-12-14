@@ -9,7 +9,7 @@ const ERRORCLOSE = 3000;
 
 const GroupModal = ({ isOpen, onClose, groupName, groupId, avatar, setEdited }) => {
   const [isModalOpen, setModalOpen] = useState(isOpen);
-  const [isEditing, setIsEditing] = useState(false); 
+  const [isEditing, setIsEditing] = useState(false);
   const [editedGroupName, setEditedGroupName] = useState(groupName);
   const [editedAvatar, setEditedAvatar] = useState(avatar);
   const [buttonText, setButtonText] = useState('Rename');
@@ -147,7 +147,7 @@ const GroupModal = ({ isOpen, onClose, groupName, groupId, avatar, setEdited }) 
       .catch((error) => {
         setEditLoading(false);
         setError({ message: error.response.data.error || error.message })
-      }); 
+      });
   };
 
   if (error) {
@@ -187,8 +187,8 @@ const GroupModal = ({ isOpen, onClose, groupName, groupId, avatar, setEdited }) 
             {members.map(member => {
               return (
                 <>
-                <SingleMemberContainer>
-                  <MemberAvatar src={member.user_avatar} />
+                  <SingleMemberContainer>
+                    <MemberAvatar src={member.user_avatar} />
                     <Header key={member.id_users}>{member.uname}</Header>
                     <DeleteMemberButton onClick={() => handleDeleteMember(groupId, member.id_users)}>X</DeleteMemberButton>
                   </SingleMemberContainer>
@@ -217,7 +217,7 @@ const GroupModal = ({ isOpen, onClose, groupName, groupId, avatar, setEdited }) 
             />
           </>}
         <ButtonContainer>
-          <Button onClick={handleSaveChanges}>{isEditLoading ? 'Saving...' : 'Save'}</Button>
+          <SaveButton onClick={handleSaveChanges}>{isEditLoading ? 'Saving...' : 'Save'}</SaveButton>
           <Button onClick={handleCloseModal}>Close</Button>
           <DeleteButton onClick={() => handleDeleteGroup()}>Delete Group</DeleteButton>
         </ButtonContainer>
@@ -360,10 +360,13 @@ const AddMemberButton = styled.button`
   border-radius: 50px;
   cursor: pointer;
   margin: 1rem 0;
+  &:hover {
+    background-color: #F6F6F640;
+  }
 `;
 
 const DeleteMemberButton = styled.button`
-  background-color: #DF9595;
+  background-color: #80000070;
   color: #F3F3E7;
   border: none;
   border-radius: 100px;
@@ -372,7 +375,7 @@ const DeleteMemberButton = styled.button`
   margin-right: 1rem;
   cursor: pointer;
   &:hover {
-    background-color: #D17576;
+    background-color: #800000;
   }
 `;
 
@@ -383,6 +386,23 @@ const Button = styled.button`
   border-radius: 50px;
   padding: 1rem 2rem;
   cursor: pointer;
+
+  &:hover {
+    background-color: #F6F6F640;
+  }
+`;
+
+const SaveButton = styled.button`
+  background-color: #45575C;
+  color: #F3F3E7;
+  border: none;
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #c4a74795;
+  }
 `;
 
 const EditButton = styled.button`
@@ -394,6 +414,10 @@ const EditButton = styled.button`
   border: none;
   border-radius: 50px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #F6F6F640;
+  }
 `;
 
 const EditAvatarButton = styled.button`
@@ -404,13 +428,21 @@ const EditAvatarButton = styled.button`
   border: none;
   border-radius: 50px;
   cursor: pointer;
+
+  &:hover {
+    background-color: #F6F6F640;
+  }
 `;
 
 const DeleteButton = styled.button`
-  background-color: #DF9595;
+  background-color: #80000070;
   color: #F3F3E7;
   border: none;
   border-radius: 50px;
   padding: 1rem 2rem;
   cursor: pointer;
+
+  &:hover {
+    background-color: #800000;
+  }
 `;

@@ -153,6 +153,12 @@ const ChangeAvatarButton = styled.button`
   border-radius: 50px;
   margin-left: auto;
   cursor: pointer;
+
+  &:hover {
+    background-color: #F6F6F630;
+    color: #F6F6F6;
+    text-decoration: none;
+  }
 `;
 
 const ModalContainer = styled.div`
@@ -203,12 +209,16 @@ const ButtonContainer = styled.div`
 `;
 
 const CloseButton = styled.button`
-  background-color: #DF9595;
+  background-color: #45575C;
   color: white;
   border: none;
   border-radius: 50px;
   padding: 1rem 2rem;
   cursor: pointer;
+
+  &:hover {
+    background-color: #F6F6F640;
+  }
 `;
 
 const SaveButton = styled.button`
@@ -218,4 +228,8 @@ const SaveButton = styled.button`
   border-radius: 50px;
   padding: 1rem 2rem;
   cursor: pointer;
+
+  &:hover {
+    background-color: #c4a74795;
+  }
 `;

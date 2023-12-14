@@ -12,8 +12,7 @@ const StyledButton = styled.button`
   cursor: pointer;
 
   &:hover {
-    background-color: #F3F3E7;
-    color: #45575C;
+    background-color: #80000070;
   }
 
   @media (max-width: 768px) {

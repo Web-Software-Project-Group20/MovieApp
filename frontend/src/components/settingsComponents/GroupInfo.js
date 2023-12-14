@@ -106,17 +106,21 @@ const GroupInfo = () => {
                 {groups.map(group => {
                   return (
                     <Group key={group.id_groups}>
-                      <GroupAvatar src={group.groups_avatar} />
-                      <GroupTitle onClick={() => handleGroupNameClick(group.id_groups)}>{group.groups_name}</GroupTitle>
-                      {group.is_admin ?
-                        <>
-                          <Badge $admin>admin</Badge>
-                          <GroupButton onClick={() => handleEditGroup(group.groups_name, group.id_groups, group.groups_avatar)}>Edit</GroupButton>
-                        </> :
-                        <>
-                          <Badge>member</Badge>
-                          <GroupButton $leave onClick={() => handleLeaveGroup(group.id_groups)}>Leave</GroupButton>
-                        </>}
+                      <IconName>
+                        <GroupAvatar src={group.groups_avatar} />
+                        <GroupTitle onClick={() => handleGroupNameClick(group.id_groups)}>{group.groups_name}</GroupTitle>
+                      </IconName>
+                      <BadgeButton>
+                        {group.is_admin ?
+                          <>
+                            <Badge $admin>ADMIN</Badge>
+                            <GroupButton onClick={() => handleEditGroup(group.groups_name, group.id_groups, group.groups_avatar)}>Edit</GroupButton>
+                          </> :
+                          <>
+                            <Badge>MEMBER</Badge>
+                            <GroupButton $leave onClick={() => handleLeaveGroup(group.id_groups)}>Leave</GroupButton>
+                          </>}
+                      </BadgeButton>
                     </Group>
                   )
                 })}
@@ -133,6 +137,8 @@ const GroupContainer = styled.div`
 `;
 
 const Group = styled.div`
+justify-content: space-between;
+background-color: #45575C50;
   display: flex;
   flex-direction: row;
   padding: 1rem;
@@ -150,7 +156,6 @@ const GroupAvatar = styled.img`
 const GroupTitle = styled.a`
   font-size: 16px;
   padding: 1rem;
-  margin: 0;
   font-family: Montserrat;
   color: #F3F3E7;
   cursor: pointer;
@@ -159,25 +164,30 @@ const GroupTitle = styled.a`
 const Badge = styled.div`
   padding: 0.5rem;
   border-radius: 50px;
-  border: ${props => props.$admin ? '1px solid #B7A50A;' : '1px solid #B70A0A;'}
+  width: 60px;
+  border: ${props => props.$admin ? '1px solid #B7A50A;' : '1px solid #CA343390;'}
   text-align: center;
   font-size: 0.8rem;
   margin: 0.5rem;
   font-family: Montserrat;
-  color: ${props => props.$admin ? '#B7A50A' : '#B70A0A;'}
+  color: ${props => props.$admin ? '#B7A50A' : '#CA3433;'}
 `;
 
 const GroupButton = styled.button`
-  background-color: ${props => props.$leave ? '#DF9595' : '#45575C'};
+  background-color: ${props => props.$leave ? '#80000070' : '#45575C'};
   color: white;
   border: none;
   border-radius: 50px;
   padding: 0.5rem 1rem;
   margin-left: auto;
-  margin-right: 1rem;
   font-family: Montserrat;
   cursor: pointer;
-`;
+  width: 80px;
+
+  &:hover {
+    background-color: ${props => props.$leave ? '#800000' : '#F6F6F630'};
+  }
+  `;
 
 const Backdrop = styled.div`
   position: fixed;
@@ -189,5 +199,17 @@ const Backdrop = styled.div`
   backdrop-filter: blur(5px); /* Apply the blur effect */
   z-index: 999; /* Make sure it's above other elements */
 `;
+
+const IconName = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
+
+const BadgeButton = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`;
+
 
 export default GroupInfo
