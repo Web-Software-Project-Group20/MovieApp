@@ -16,11 +16,23 @@ const ContentSearch = () => {
         const apiKey = process.env.REACT_APP_TMDB_API_KEY;
         const params = { query: query, api_key: apiKey };
         
-        const movies = await GetContent("search/movie", params);
-        const tvShows = await GetContent("search/tv", params);
+        let moviesWithPosters = [];
+        let tvShowsWithPosters = [];
+        let page = 1;
 
-        setAllMovies(movies);
-        setAllShows(tvShows);
+        while (moviesWithPosters.length + tvShowsWithPosters.length < 15 && page <= 5) {
+          const movies = await GetContent("search/movie", { ...params, page });
+          const tvShows = await GetContent("search/tv", { ...params, page });
+
+          moviesWithPosters = [...moviesWithPosters, ...movies.filter(item => item.poster_path)];
+          tvShowsWithPosters = [...tvShowsWithPosters, ...tvShows.filter(item => item.poster_path)];
+
+          page++;
+        }
+
+        setAllMovies(moviesWithPosters.slice(0, 15));
+        setAllShows(tvShowsWithPosters.slice(0, 15));
+
       } catch (error) {
         console.error('Error fetching data:', error);
       }

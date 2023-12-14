@@ -40,13 +40,14 @@ const MediaList = ({ media, mediaType, displayCount }) => {
   return (
     <MediaListContainer>
       {displayedMedia.map((item) => (
+        item.poster_path && (
         <MediaItem key={item.id}>
           <Link to={`/${mediaType}/${item.id}`}>
             <Image src={`https://image.tmdb.org/t/p/w500${item.poster_path}`} alt={item.title || item.name} />
             <MediaTitle>{item.title || item.name}</MediaTitle>
           </Link>
         </MediaItem>
-      ))}
+      )))}
     </MediaListContainer>
   );
 };
