@@ -20,38 +20,46 @@ function Profile() {
   const {username}  = useParams();
   const dataBaseLink = 'http://localhost:3001/'
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-  
-        if (!username) {
-          const [avatarRes, groupsRes, favouritesRes] = await Promise.all([
-            axios.get(dataBaseLink + 'users/profile', { withCredentials: true }),
-            axios.get(dataBaseLink + 'groups/mygroups', { withCredentials: true }),
-            axios.get(dataBaseLink + 'favourites/from', { withCredentials: true })
-          ]);
-  
-          setAvatarName(avatarRes.data.userInfo);
-          setGroups(groupsRes.data.Groups);
-          setFavourites(favouritesRes.data);
-        } else {
-          const profileRes = await axios.get(dataBaseLink + 'users/profile/' + username, { withCredentials: true });
-          const groupsRes = await axios.get(dataBaseLink + 'groups/mygroups/' + profileRes.data.userInfo.id_users, { withCredentials: true });
-  
-          setAvatarName(profileRes.data.userInfo);
-          setGroups(groupsRes.data.Groups);
-          setId(profileRes.data.userInfo.id_users);
-        }
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoading(false);
-      }
-    };
-  
-    fetchData();
-  }, []);
+useEffect(() => {
+
+  const fetchData = async () => {
+  setLoading(true);
+  if (!username) {
+    try {
+      const avatarRes = await axios.get(dataBaseLink + 'users/profile', { withCredentials: true });
+      setAvatarName(avatarRes.data.userInfo);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    } 
+    try {
+      const groupsRes = await axios.get(dataBaseLink + 'groups/mygroups', { withCredentials: true });
+      setGroups(groupsRes.data.Groups);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    } 
+    try {
+      const favouritesRes = await axios.get(dataBaseLink + 'favourites/from', { withCredentials: true });
+      setFavourites(favouritesRes.data);
+    } catch (error) {
+      console.error(error);
+      setLoading(false);
+    } 
+    setLoading(false);
+  } else {
+    const profileRes = await axios.get(dataBaseLink + 'users/profile/' + username, { withCredentials: true });
+    const groupsRes = await axios.get(dataBaseLink + 'groups/mygroups/' + profileRes.data.userInfo.id_users, { withCredentials: true });
+
+    setAvatarName(profileRes.data.userInfo);
+    setGroups(groupsRes.data.Groups);
+    setId(profileRes.data.userInfo.id_users);
+    setLoading(false);
+  }
+};
+
+  fetchData();
+}, []);
 
 
 return (
