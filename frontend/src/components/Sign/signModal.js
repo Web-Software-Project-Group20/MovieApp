@@ -4,6 +4,8 @@ import axios from 'axios';
 import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import ErrorHandler from '../settingsComponents/ErrorHandler'
+import { MdClose } from "react-icons/md";
+
 
 const ModalWrapper = styled.div`
   position: fixed;
@@ -20,11 +22,10 @@ const ModalWrapper = styled.div`
 `;
 
 const ModalContent = styled.div`
-  background: #2E414695;
-  padding: 20px;
-  border-radius: 8px;
+background: linear-gradient(to bottom, rgba(27, 47, 52, 0.80) 0%, rgba(7, 27, 32, 0.80) 100%);padding: 20px;
+  border-radius: 3px;
   height: 500px;
-  width: 400px;
+  width: 350px;
 `;
 
 const FillContainer = styled.div`
@@ -32,7 +33,7 @@ const FillContainer = styled.div`
   flex-direction: column;
   justify-content: space-between;
   height: 30%
-`;
+  `;
 
 const CloseButton = styled.button`
   background: transparent;
@@ -40,7 +41,7 @@ const CloseButton = styled.button`
   font-size: 20px;
   border: none;
   cursor: pointer;
-  align-self: right;
+  margin-left: 325px;
 `;
 
 const ToggleButtonContainer = styled.div`
@@ -49,6 +50,7 @@ padding: 20px;
   align-items: center;
   text-align: center;
   margin: auto;
+  font-size: 21px;
 `;
 
 const ToggleButton = styled.button`
@@ -56,26 +58,31 @@ const ToggleButton = styled.button`
   font-family: Montserrat;
   color: #EEF1DC;
   border: none;
-  padding: 5px;
+  padding: 8px;
   margin: 0 20px 10px;
   cursor: pointer;
   font-size: inherit;
   font-weight: ${(props) => (props.active === 'true' ? 'bolder' : 'normal')};
-  border-bottom: ${(props) => (props.active === 'true' ? '1px solid #EEF1DC;' : 'none')}
+  color: ${(props) => (props.active === 'true' ? '#bc9a44' : '#B3BAAE')};
+  border-bottom: ${(props) => (props.active === 'true' ? '1px solid #bc9a44;' : 'none')}
 `;
 
 const Label = styled.label`
   color: #EEF1DC;
   font-family: Montserrat;
-  font-size: 16px;
+  font-size: 14px;
+  margin-left: 40px;
+  margin-right: 40px;
+  margin-top: 20px;
   margin-bottom: 5px;
 `;
 
 const InputField = styled.input`
-  width: 100%;
+  margin-left: 40px;
+  margin-right: 40px;
   background: transparent;
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 18px;
   box-sizing: border-box;
   border: none;
   border-bottom: 1px solid #F3F3E760;
@@ -83,20 +90,29 @@ const InputField = styled.input`
 `;
 
 const SubmitButton = styled.button`
-  width: 50%;
-  background: #45575C;
+  width: 170px;
+  height: 40px;
+  background: #14333D;
   color: #EEF1DC;
   border: none;
   box-sizing: border-box;
-  border-radius: 50px;
+  border-radius: 2px;
   padding: 0.5rem;
   cursor: pointer;
-  margin-top: 10px; 
+  position: fixed;
+  bottom: 250px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  &:hover {
+    background: #172E35;
+  }
 `;
 
 const SubmitButtonContainer = styled.div`
   display: grid;
   place-items: center;
+
 `;
 
 const SignInSignUpModal = ({ isOpen, onClose }) => {
@@ -172,7 +188,9 @@ const SignInSignUpModal = ({ isOpen, onClose }) => {
       {isOpen && (
         <ModalWrapper>
           <ModalContent>
-            <div style={{ display: 'flex', marginBottom: '10px' }}>
+            <CloseButton onClick={onClose}><MdClose />
+            </CloseButton>
+            <div style={{ display: 'flex', marginBottom: '5px' }}>
               <ToggleButtonContainer>
                 <ToggleButton active={isSignIn ? 'true' : 'false'} onClick={() => setIsSignIn(true)}>
                   Sign In
@@ -181,20 +199,19 @@ const SignInSignUpModal = ({ isOpen, onClose }) => {
                   Sign Up
                 </ToggleButton>
               </ToggleButtonContainer>
-              <CloseButton onClick={onClose}>X</CloseButton>
             </div>
             <FillContainer>
               {isSignIn ? (
                 <>
                   {/* Sign In Fields */}
-                  <Label htmlFor="username">Username:</Label>
+                  <Label htmlFor="username">USERNAME:</Label>
                   <InputField
                     type="text"
                     id="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
-                  <Label htmlFor="password">Password:</Label>
+                  <Label htmlFor="password">PASSWORD:</Label>
                   <InputField
                     type="password"
                     id="password"
@@ -202,36 +219,36 @@ const SignInSignUpModal = ({ isOpen, onClose }) => {
                     onChange={(e) => setPassword(e.target.value)}
                   />
                   <SubmitButtonContainer>
-                    <SubmitButton onClick={handleSignIn}>{isLoading ? 'Signing in...' : 'Sign in'}</SubmitButton>
+                    <SubmitButton onClick={handleSignIn}>{isLoading ? 'Signing in...' : 'SIGN IN'}</SubmitButton>
                   </SubmitButtonContainer>
                 </>
               ) : (
                 <>
                   {/* Sign Up Fields */}
-                  <Label htmlFor="username">Username:</Label>
+                  <Label htmlFor="username">USERNAME:</Label>
                   <InputField
                     type="text"
                     id="username"
                     value={username}
                     onChange={(e) => setUsername(e.target.value)}
                   />
-                    <Label htmlFor="password">Password:</Label>
-                    <InputField
-                      type="password"
-                      id="password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
-                    />
-                  <Label htmlFor="email">Email:</Label>
+                  <Label htmlFor="password">PASSWORD:</Label>
+                  <InputField
+                    type="password"
+                    id="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                  />
+                  <Label htmlFor="email">EMAIL:</Label>
                   <InputField
                     type="email"
                     id="email"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    />
-                    <SubmitButtonContainer>
-                      <SubmitButton onClick={handleSignUp}>{isLoading ? 'Creating account...' : 'Sign up'}</SubmitButton>
-                    </SubmitButtonContainer>
+                  />
+                  <SubmitButtonContainer>
+                    <SubmitButton onClick={handleSignUp}>{isLoading ? 'Creating account...' : 'SIGN UP'}</SubmitButton>
+                  </SubmitButtonContainer>
                 </>
               )}
               {err && <ErrorHandler message={err.message} />}
