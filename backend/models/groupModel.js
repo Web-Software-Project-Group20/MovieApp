@@ -12,7 +12,7 @@ const sql = {
   getIfGroupExists: 'SELECT * FROM groups WHERE id_groups = $1',
   addInvite: 'INSERT INTO groupinvites (id_users_requests, id_groups) VALUES ($1, $2)',
   userHasSentRequest: 'SELECT * FROM groupinvites WHERE id_users_requests = $1 AND id_groups = $2',
-  getUsersGroups: 'SELECT groups.id_groups, groups.groups_name, groups.groups_avatar, groups.groups_description, users_in_groups.is_admin FROM groups JOIN users_in_groups ON groups.id_groups = users_in_groups.id_groups WHERE users_in_groups.id_users = $1',
+  getUsersGroups: 'SELECT groups.id_groups, groups.groups_name, groups.groups_avatar, groups.groups_description, users_in_groups.is_admin FROM groups JOIN users_in_groups ON groups.id_groups = users_in_groups.id_groups WHERE users_in_groups.id_users = $1 ORDER BY groups.id_groups DESC',
   getGroupMembers: 'SELECT users.id_users, uname, user_avatar FROM users JOIN users_in_groups ON users.id_users = users_in_groups.id_users WHERE id_groups = $1',
   getGroupInvites: 'SELECT id_groupinvites AS InviteId, id_users_requests AS userId, uname AS username, user_avatar AS avatar FROM groupinvites JOIN users ON groupinvites.id_users_requests = users.id_users WHERE id_groups = $1',
   deleteInvite: 'DELETE FROM groupinvites WHERE id_groupinvites = $1',
