@@ -38,23 +38,14 @@ const Image = styled.img`
   border-radius: 12px;
 `;
 
-let movies = [
-  { id: 1, title: "Movie 1", imageUrl: "https://via.placeholder.com/100x150" },
-  { id: 2, title: "Movie 2", imageUrl: "https://via.placeholder.com/100x150" },
-  { id: 3, title: "Movie 3", imageUrl: "https://via.placeholder.com/100x150" },
-  { id: 4, title: "Movie 4", imageUrl: "https://via.placeholder.com/100x150" },
-  { id: 5, title: "Movie 5", imageUrl: "https://via.placeholder.com/100x150" },
-  { id: 6, title: "Movie 6", imageUrl: "https://via.placeholder.com/100x150" },
-  { id: 7, title: "Movie 7", imageUrl: "https://via.placeholder.com/100x150" },
-  // Add more movies as needed
-];
-
-
-
-const ListSection = ({ groupId, favoritesData }) => {
+const ListSection = ({ favoritesData }) => {
 
   console.log(Array.isArray(favoritesData));
   const favorites = favoritesData.slice(0,5);
+
+  if (!favorites) {
+    return <p>No favourites yet.</p>;
+  }
 
   return (
     <ListSectionContainer>

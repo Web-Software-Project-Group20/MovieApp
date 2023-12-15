@@ -3,12 +3,6 @@ import styled from 'styled-components';
 import axios from 'axios';
 
 const MessageSection = ({ groupId }) => {
-  const currentUser = {
-    id: 1,
-    name: 'Current User',
-    avatarUrl: 'https://via.placeholder.com/50',
-  };
-
   const [newMessage, setNewMessage] = useState('');
   const [messages, setMessages] = useState([]);
 
@@ -34,7 +28,7 @@ const MessageSection = ({ groupId }) => {
     if (newMessage.trim() !== '') {
       const messageData = { 
         user_comments: newMessage,
-        id_groups: 54
+        id_groups: groupId
       }
       axios.post('http://localhost:3001/comments/comment', messageData, { withCredentials: true })
         .then((res) => {
@@ -64,6 +58,7 @@ const MessageSection = ({ groupId }) => {
             </MessageContent>
           </Message>
         ))}
+      </MessagesContainer>
         <SendMessageContainer>
           <Input
             type="text"
@@ -72,8 +67,7 @@ const MessageSection = ({ groupId }) => {
             onChange={(e) => setNewMessage(e.target.value)}
           />
           <Button onClick={handleSendMessage}>Send</Button>
-        </SendMessageContainer>
-      </MessagesContainer>
+      </SendMessageContainer>
     </MessageContainer>
   );
 };

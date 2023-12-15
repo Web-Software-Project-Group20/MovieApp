@@ -5,7 +5,7 @@ import Global from '../components/global/styles/global';
 import NavBar from '../components/global/NavBar';
 import MainSection from '../components/groupsComponents/MainSection.js';
 import ListSection from '../components/groupsComponents/ListSection';
-import MessageSection from "../components/groupsComponents/Messages";
+import Messages from "../components/groupsComponents/Messages";
 import { useParams, Link } from "react-router-dom";
 import { CiCircleAlert } from "react-icons/ci";
 import styled from 'styled-components';
@@ -24,13 +24,11 @@ function Groups() {
       })
       .catch((error) => {
         console.log(error);
+        setIsLoading(false);
       })
-  },[])
+  }, [])
 
-  
-  console.log('groupIdFromGroupPage', groupId)
-
-  if(isLoading){
+  if (isLoading) {
     return(
       <h2>Loading</h2>
     )
@@ -46,15 +44,15 @@ function Groups() {
         <nav>
           <NavBar />
         </nav>
-        <main> {/*Global styling for vertical flexing*/}
+        <main style={{ marginBottom: '100px' }}> {/*Added margin to lift up main content so navbar doesnt block*/}
           <h2>Groups</h2>
           <GroupBox> {/*Flexes avatar and info horizontally*/}
             <MainSection groupId={groupId}/>
           </GroupBox>
           <List> {/*List of movies/series*/}
             <div className="list-header">
-            <h2>List</h2>
-            <Link to="favouritedetails" target="_blank">
+              <h2>Favourites</h2>
+              <Link to="favouritedetails">
               <SeeAll>See All →</SeeAll>
           </Link> 
             </div>
@@ -64,14 +62,11 @@ function Groups() {
           </List>
           <News>
             <h2>News</h2>
-            <p>News here</p>
-            <p>News here</p>
-            <p>News here</p>
           </News>
+          <div className="side-section">
+            <Messages groupId={groupId} />
+          </div>
         </main>
-        <div className="side-section">
-          <MessageSection groupId={groupId}/>
-        </div>
       </div>
     </div>
   );
