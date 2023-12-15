@@ -24,8 +24,8 @@ function createToken (res, userId) {
   });
   res.cookie('uJwt', token, {
     httpOnly: true,
-    secure: false,
-    sameSite: 'lax',
+    secure: true,
+    sameSite: 'none',
     maxAge: 60 * 60 * 1000
   });
 }
