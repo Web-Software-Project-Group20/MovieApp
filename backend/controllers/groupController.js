@@ -5,6 +5,7 @@ const createGroup = async (req, res, next) => {
   const groupName = req.body.groupName;
   const groupDescription = req.body.groupDescription || null;
   const groupAvatar = req.body.groupAvatar || null;
+
   try {
     if (!groupName || groupName === '') {
       res.status(400);
@@ -70,7 +71,7 @@ const getAllGroups = async (req, res, next) => {
 
 const getUsersGroups = async (req, res, next) => {
   const userId = req.params.id || res.locals.userId;
-
+  
   try {
     const Groups = await groupModel.getUsersGroups(userId);
 

@@ -28,20 +28,19 @@ const Groups = (props) => {
   
 const fetchGroups = () => {
   const fetchData = async () => {
-    if(!username) {
-      axios.get('http://localhost:3001/groups/mygroups', { withCredentials: true })
-      .then((res) => {
+    try {
+      if (!username) {
+        const res = await axios.get('http://localhost:3001/groups/mygroups', { withCredentials: true });
         setGroups(res.data.Groups);
-      })
-      .catch((error) => {
-        console.error('Error fetching groups:', error);
-      });
-    } else {
-      const profileRes = await axios.get('http://localhost:3001/users/profile/' + username, { withCredentials: true });
-      const groupsRes = await axios.get('http://localhost:3001/groups/mygroups/' + profileRes.data.userInfo.id_users, { withCredentials: true });
-      setGroups(groupsRes.data.Groups);
+      } else {
+        const profileRes = await axios.get('http://localhost:3001/users/profile/' + username, { withCredentials: true });
+        const groupsRes = await axios.get('http://localhost:3001/groups/mygroups/' + profileRes.data.userInfo.id_users, { withCredentials: true });
+        setGroups(groupsRes.data.Groups);
+      }
+    } catch (error) {
+      console.error('Error fetching groups:', error);
     }
-  }
+  };
   fetchData();
 };
 
