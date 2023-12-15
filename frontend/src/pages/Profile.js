@@ -23,8 +23,8 @@ function Profile() {
 useEffect(() => {
   
   const fetchData = async () => {
-    setLoading(true);
-
+  setLoading(true);
+  if (!username) {
     try {
       const avatarRes = await axios.get(dataBaseLink + 'users/profile', { withCredentials: true });
       setAvatarName(avatarRes.data.userInfo);
