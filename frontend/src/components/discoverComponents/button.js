@@ -6,7 +6,6 @@ const GenreButton = ({ options, label, onSelect }) => {
   const [selectedOption, setSelectedOption] = useState(null);
 
   const toggleList = () => {
-    console.log('Toggle List function called');
     if (isOpen && selectedOption === null) {
       setIsOpen(false);
     } else {
@@ -15,7 +14,6 @@ const GenreButton = ({ options, label, onSelect }) => {
   };
 
   const handleOptionClick = (option) => {
-    console.log('Option Clicked:', option);
     setSelectedOption(option);
     setIsOpen(false);
     onSelect(option);

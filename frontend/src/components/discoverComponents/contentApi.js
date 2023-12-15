@@ -5,10 +5,6 @@ const baseUrl = 'https://api.themoviedb.org/3/';
 const GetContent = async (mediaType, params) => {
   try {
     const response = await axios.get(`${baseUrl}${mediaType}`, { params });
-    console.log('URL:', `${baseUrl}${mediaType}`);
-    console.log('Params:', params);
-    console.log('Status Code:', response.status);
-    console.log('Response:', response.data);
     return response.data.results;
   } catch (error) {
     throw new Error(`Error in GetContent: ${error.message}`);
