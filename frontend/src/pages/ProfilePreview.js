@@ -14,7 +14,6 @@ function Profile() {
   const [groups, setGroups] = useState('');
   const [favourites, setFavourites] = useState('');
 useEffect(() => {
-      //Haetaan userNimellä id ja haetaan sitten samalla kaikki muutkin id:tä vastaan:-)
       
 }, []);
 

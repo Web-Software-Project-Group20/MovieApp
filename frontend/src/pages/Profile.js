@@ -23,45 +23,51 @@ function Profile() {
 useEffect(() => {
   
   const fetchData = async () => {
-    setLoading(true);
-
+  setLoading(true);
+  if (!username) {
     try {
-      if (!username) {
-        const avatarRes = await axios.get(dataBaseLink + 'users/profile', { withCredentials: true });
-        setAvatarName(avatarRes.data.userInfo);
-
-        const groupsRes = await axios.get(dataBaseLink + 'groups/mygroups', { withCredentials: true });
-        setGroups(groupsRes.data.Groups);
-
-        const favouritesRes = await axios.get(dataBaseLink + 'favourites/from', { withCredentials: true });
-        setFavourites(favouritesRes.data);
-      } else {
-        const profileRes = await axios.get(dataBaseLink + 'users/profile/' + username, { withCredentials: true });
-        setAvatarName(profileRes.data.userInfo);
-        setId(profileRes.data.userInfo.id_users);
-
-        if (byId) {
-
-          try {
-            const groupsRes = await axios.get(dataBaseLink + 'groups/mygroups/' + byId, { withCredentials: true });
-            setGroups(groupsRes.data.Groups);
-          } catch (error) {
-            console.error(error);
-            // Handle the error specific to the 'axios.get' call inside the 'if (byId)' block
-            // This might include a different action or logging
-          }
-        }
-      }
+      const avatarRes = await axios.get(dataBaseLink + 'users/profile', { withCredentials: true });
+      setAvatarName(avatarRes.data.userInfo);
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoading(false); // Ensure that setLoading(false) is always called
     }
-  };
 
-  fetchData();
+    try {
+      const groupsRes = await axios.get(dataBaseLink + 'groups/mygroups', { withCredentials: true });
+      setGroups(groupsRes.data.Groups);
+    } catch (error) {
+      
+    }
+    try {
+      const favouritesRes = await axios.get(dataBaseLink + 'favourites/from', { withCredentials: true });
+      setFavourites(favouritesRes.data);
+    } catch (error) {
+      console.error(error);
+    }
+    setLoading(false);
+  } else {
+    try {
+      const profileRes = await axios.get(dataBaseLink + 'users/profile/' + username, { withCredentials: true });
+      setAvatarName(profileRes.data.userInfo);
+      setId(profileRes.data.userInfo.id_users);
+    } catch (error) {
+      console.error(error);
+    } 
+
+    if (byId) {
+      try {
+        const groupsRes = await axios.get(dataBaseLink + 'groups/mygroups/' + byId, { withCredentials: true });
+        setGroups(groupsRes.data.Groups);
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setLoading(false);
+      }
+    }
+  }
+};
+fetchData();
 }, [username, byId]);
-
 
 return (
   <div className="container">
@@ -82,7 +88,7 @@ return (
         </div>
         {!username && (
           <div className="favourites">
-            <Favourites favouritesData={favourites} />
+            {!isLoading && (<Favourites favouritesData={favourites} />)}
           </div>
         )}
         </main>
