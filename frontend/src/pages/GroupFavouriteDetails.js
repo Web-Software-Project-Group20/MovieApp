@@ -6,33 +6,44 @@ import styled from 'styled-components';
 import Header from '../components/global/Header';
 import Global from '../components/global';
 import NavBar from '../components/global/NavBar';
-import FavouriteAvatar from '../components/groupsComponents/groupFavouriteAvatar';
-import AllFavourites from '../components/groupsComponents/GroupAllFavourites';
+import GroupFavouriteAvatar from '../components/groupsComponents/GroupFavouriteAvatar';
+import GroupAllFavourites from '../components/groupsComponents/GroupAllFavourites';
+import { useParams } from 'react-router-dom';
 
-function GroupFavouriteDetails({ groupId }) {
-  const [avatarName, setAvatarName] = useState('');
+function GroupFavouriteDetails() {
+  const [groupData, setGroupData] = useState('');
   const [favourites, setFavourites] = useState([]);
 
-  useEffect(() => {
-    // Fetch Group Info including Avatar and Username
-    axios.get(`http://localhost:3001/groups/${groupId}/favouritedetails`, { withCredentials: true })
+  const groupId = useParams().groupId;
+
+  const getGroupInfo = () => {
+    axios.get(`http://localhost:3001/groups/${groupId}`, { withCredentials: true })
       .then((res) => {
         console.log(res.data);
-        setAvatarName(res.data.getGroupInfo);
+        setGroupData(res.data.groupInfo);
       })
       .catch((error) => {
         console.error('Error fetching group info:', error);
       });
+  }
 
-    // Fetch User's favorites
-    axios.get('http://localhost:3001/favourites/from', { withCredentials: true })
+  const getFavourites = () => {
+    axios.get(`http://localhost:3001/favourites/from?id_groups=${groupId}`, { withCredentials: true })
       .then((res) => {
+        console.log(res.data);
         setFavourites(res.data);
       })
       .catch((error) => {
         console.error('Error fetching favorites:', error);
       });
+  }
+
+  useEffect(() => {
+    getGroupInfo();
+    getFavourites();
   }, [groupId]);
+
+  console.log('favourites', favourites);
 
   return (
     <Container>
@@ -46,10 +57,10 @@ function GroupFavouriteDetails({ groupId }) {
         </nav>
         <main>
           <div className='top'>
-            <FavouriteAvatar userData={avatarName} />
+            <GroupFavouriteAvatar groupData={groupData} />
           </div>
           <div className='allfavourites'>
-            <AllFavourites favouritesData={favourites} />
+            <GroupAllFavourites favouritesData={favourites} />
           </div>
         </main>
       </Content>
@@ -65,5 +76,5 @@ const Container = styled.div`
 `;
 
 const Content = styled.div`
-  /* Add your styles here */
+  margin-bottom: 120px;
 `;
