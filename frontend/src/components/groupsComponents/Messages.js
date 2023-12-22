@@ -29,7 +29,7 @@ const MessageSection = ({ groupId }) => {
     if (newMessage.trim() !== '') {
       const messageData = {
         user_comments: newMessage,
-        id_groups: 54
+        id_groups: groupId
       }
       axios.post(`${backendurl}/comments/comment`, messageData, { withCredentials: true })
         .then((res) => {
